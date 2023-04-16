@@ -36,7 +36,7 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Premium filter")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Others
-LOG_CHANNEL = -1001616765818 ))
+LOG_CHANNEL = -1001616765818))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Mc_group_film')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "False")), False)
 IMDB = is_enabled((environ.get('IMDB', "False")), False)
