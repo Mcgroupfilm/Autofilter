@@ -107,7 +107,109 @@ async def next_page(bot, query):
             ]
             for file in files
         ]
-    
+        else:
+
+            btn = [
+
+                [
+
+                    InlineKeyboardButton(
+
+                        text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
+
+                    ),
+
+                    InlineKeyboardButton(
+
+                        text=f"{get_size(file.file_size)}",
+
+                        callback_data=f'files_#{file.file_id}',
+
+                    ),
+
+                ]
+
+                for file in files
+
+            ]
+
+    try:
+
+        if settings['auto_delete']:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+        else:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+                
+
+    except KeyError:
+
+        grpid = await active_connection(str(query.message.from_user.id))
+
+        await save_group_settings(grpid, 'auto_delete', True)
+
+        settings = await get_settings(query.message.chat.id)
+
+        if settings['auto_delete']:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+        else:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+    try:
+
+ settings = await get_settings(query.message.chat.id)
+
+        
+ if settings['max_btn']:
     if 0 < offset <= 6:
         off_set = 0
     elif offset == 0:
@@ -133,14 +235,10 @@ async def next_page(bot, query):
             ],
         )
     btn.insert(0, [
-        InlineKeyboardButton('🔋 Hᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 🔋', url='https://t.me/mightylink')
-          ])
-        
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Fɪʟᴇs Tᴏ PM !", callback_data=f"send_fall#files#{offset}")
+    ])
     btn.insert(0, [
-       
-        
-
-        InlineKeyboardButton("😌 Cʜᴇᴄᴋ Bᴏᴛ PM 😌", url=f"https://t.me/{temp.U_NAME}")
+        InlineKeyboardButton("⚡ Cʜᴇᴄᴋ Bᴏᴛ PM ⚡", url=f"https://t.me/{temp.U_NAME}")
     ])
     try:
         await query.edit_message_reply_markup(
@@ -780,7 +878,106 @@ async def auto_filter(client, msg, spoll=False):
                 ),
             ]
             for file in files
-        ]      
+        ] 
+     else:
+
+            btn = [
+
+                [
+
+                    InlineKeyboardButton(
+
+                        text=f"{file.file_name}",
+
+                        callback_data=f'{pre}#{file.file_id}',
+
+                    ),
+
+                    InlineKeyboardButton(
+
+                        text=f"{get_size(file.file_size)}",
+
+                        callback_data=f'{pre}#{file.file_id}',
+
+                    ),
+
+                ]
+
+                for file in files
+
+            ]
+
+    try:
+
+        if settings['auto_delete']:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+        else:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+                
+
+    except KeyError:
+
+        grpid = await active_connection(str(message.from_user.id))
+
+        await save_group_settings(grpid, 'auto_delete', True)
+
+        settings = await get_settings(message.chat.id)
+
+        if settings['auto_delete']:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
+
+        else:
+
+            btn.insert(0, 
+
+                [
+
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo')
+
+                ]
+
+            )
     
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
@@ -795,22 +992,21 @@ async def auto_filter(client, msg, spoll=False):
             [InlineKeyboardButton(text="🗓 1/1", callback_data="pages")]
         )
     btn.insert(0, [
-        InlineKeyboardButton('🔋 Hᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 🔋', url='https://t.me/mightylink')
 
-           ])
-    btn.insert(0, [
-           
-        
-      
-        InlineKeyboardButton("😌 Cʜᴇᴄᴋ Bᴏᴛ PM 😌", url=f"https://t.me/{temp.U_NAME}")
-        
-       
-        
-        
-       
-           
-        
+        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Fɪʟᴇs Tᴏ PM !", callback_data=f"send_fall#files#{offset}")
+
     ])
+
+    btn.insert(0, [
+
+        InlineKeyboardButton("⚡ Cʜᴇᴄᴋ Bᴏᴛ PM ⚡", url=f"https://t.me/{temp.U_NAME}")
+
+    ])
+
+    
+
+
+    try:
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
     TEMPLATE = settings['template']
     if imdb:
@@ -846,7 +1042,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"<b>😙Rᴇǫᴜᴇsᴛᴇᴅ Bʏ : {message.from_user.mention} \n\n😊 Yᴏᴜʀ Qᴜᴇʀʏ : {search} \n\n📂Tᴏᴛᴀʟ Fɪʟᴇs Fᴏᴜɴᴅᴇᴅ : {str(total_results)} \n\n🍁 Pᴏᴡᴇʀᴇᴅ ʙʏ 🍁 @Mᴄ_Gʀᴏᴜᴘғɪʟᴍs_𝟸</b>"
+        cap = f"<b>😙Rᴇǫᴜᴇsᴛᴇᴅ Bʏ : {message.from_user.mention} \n\n😊 Yᴏᴜʀ Qᴜᴇʀʏ : {search} \n\n📂Tᴏᴛᴀʟ Fɪʟᴇs Fᴏᴜɴᴅᴇᴅ : {str(total_results)} \n\n🍁 Pᴏᴡᴇʀᴇᴅ ʙʏ 🍁 @Mc_groupfilms_2</b>"
     if imdb and imdb.get('poster'):
         try:
             hehe = await message.reply_photo(photo=imdb.get('poster'), caption=cap, reply_markup=InlineKeyboardMarkup(btn))
@@ -905,7 +1101,7 @@ async def advantage_spell_chok(msg):
     movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
-        k = await msg.reply("𝑯𝑬𝑳𝑳𝑶 {} 𝑰 𝑪𝑶𝑼𝑳𝑫𝑵'𝑻 𝑭𝑰𝑵𝑫 𝑨𝑵𝒀𝑻𝑯𝑰𝑵𝑮 𝑹𝑬𝑳𝑨𝑻𝑬𝑫 𝑻𝑶 𝑻𝑯𝑨𝑻 𝑫𝑰𝑫 𝒀𝑶𝑼 𝑴𝑬𝑨𝑵 𝑨𝑵𝒀 𝑶𝑵𝑬 𝑶𝑭 𝑻𝑯𝑬𝑺𝑬?")
+        k = await msg.reply("𝑯𝑬𝑳𝑳𝑶 {message.from_user.mention} 𝑰 𝑪𝑶𝑼𝑳𝑫𝑵'𝑻 𝑭𝑰𝑵𝑫 𝑨𝑵𝒀𝑻𝑯𝑰𝑵𝑮 𝑹𝑬𝑳𝑨𝑻𝑬𝑫 𝑻𝑶 𝑻𝑯𝑨𝑻 𝑫𝑰𝑫 𝒀𝑶𝑼 𝑴𝑬𝑨𝑵 𝑨𝑵𝒀 𝑶𝑵𝑬 𝑶𝑭 𝑻𝑯𝑬𝑺𝑬?")
         await asyncio.sleep(8)
         await k.delete()
         return
@@ -917,7 +1113,7 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("𝑯𝑬𝑳𝑳𝑶 {} 𝑰 𝑪𝑶𝑼𝑳𝑫𝑵'𝑻 𝑭𝑰𝑵𝑫 𝑨𝑵𝒀𝑻𝑯𝑰𝑵𝑮 𝑹𝑬𝑳𝑨𝑻𝑬𝑫 𝑻𝑶 𝑻𝑯𝑨𝑻 𝑫𝑰𝑫 𝒀𝑶𝑼 𝑴𝑬𝑨𝑵 𝑨𝑵𝒀 𝑶𝑵𝑬 𝑶𝑭 𝑻𝑯𝑬𝑺𝑬?",
+    await msg.reply("𝑯𝑬𝑳𝑳𝑶 {message.from_user.mention} 𝑰 𝑪𝑶𝑼𝑳𝑫𝑵'𝑻 𝑭𝑰𝑵𝑫 𝑨𝑵𝒀𝑻𝑯𝑰𝑵𝑮 𝑹𝑬𝑳𝑨𝑻𝑬𝑫 𝑻𝑶 𝑻𝑯𝑨𝑻 𝑫𝑰𝑫 𝒀𝑶𝑼 𝑴𝑬𝑨𝑵 𝑨𝑵𝒀 𝑶𝑵𝑬 𝑶𝑭 𝑻𝑯𝑬𝑺𝑬?",
                     reply_markup=InlineKeyboardMarkup(btn))
 
 
